@@ -1,0 +1,123 @@
+/*
+// Global Accordion Brick
+*/
+.brick.accordion {
+  /* DEV NOTE:
+   The number of items in an ol.checklist needs to be calculated and the following styles applied:
+
+   1 or 2 <ol class="checklist min-items">
+   3      <ol class="checklist three-items">
+   4      <ol class="checklist four-itmes">
+   5+     <ol class="checklist max-items">
+*/ }
+  .brick.accordion .header h3 {
+    color: #af2626; }
+  .brick.accordion .panel-heading {
+    background-color: #c4c3bb;
+    border-radius: 0; }
+    .brick.accordion .panel-heading h4 a {
+      color: #ffffff;
+      font-weight: bold;
+      display: inline-block;
+      width: 100%; }
+    .brick.accordion .panel-heading.active {
+      background-color: #e30c00; }
+    .brick.accordion .panel-heading .panel-title a i.glyphicon {
+      float: right;
+      margin-right: 10px;
+      cursor: pointer; }
+  .brick.accordion .panel-body {
+    margin: 0;
+    padding: 0; }
+    .brick.accordion .panel-body h4 {
+      font-weight: bold; }
+    .brick.accordion .panel-body .checklist-header {
+      padding: 15px 0 15px 0; }
+  .brick.accordion .panel-default {
+    border: none;
+    box-shadow: none;
+    -webkit-box-shadow: none; }
+  .brick.accordion .btn-wrapper {
+    margin: 30px 0 30px 0; }
+  .brick.accordion ol.checklist {
+    display: inline-block;
+    width: 100%;
+    counter-reset: checklist;
+    padding-left: 0; }
+    .brick.accordion ol.checklist > li {
+      display: inline-block;
+      vertical-align: top;
+      border-right: 2px dotted #e30c00;
+      margin-bottom: 30px;
+      padding: 0 25px 0 25px;
+      clear: left; }
+      .brick.accordion ol.checklist > li::before {
+        display: block;
+        counter-increment: checklist 1;
+        content: counter(checklist);
+        font-size: 36pt;
+        color: #e30c00;
+        line-height: 1em;
+        font-weight: bold;
+        margin-top: 0; }
+      .brick.accordion ol.checklist > li ul > li {
+        list-style-type: disc; }
+      .brick.accordion ol.checklist > li p.title {
+        font-weight: bold; }
+      .brick.accordion ol.checklist > li p:last-child {
+        margin-bottom: 0; }
+    .brick.accordion ol.checklist > li:first-child {
+      padding: 0 25px 0 0; }
+    .brick.accordion ol.checklist > li:last-child {
+      border-right: none; }
+    .brick.accordion ol.checklist > li.no-counter {
+      vertical-align: top; }
+      .brick.accordion ol.checklist > li.no-counter::before {
+        content: none; }
+      .brick.accordion ol.checklist > li.no-counter p.title {
+        color: #f47c00; }
+  @media only screen and (max-width: 991px) {
+    .brick.accordion ol.checklist > li {
+      display: inline-block;
+      width: 48%; }
+      .brick.accordion ol.checklist > li ul li {
+        width: 100%; }
+    .brick.accordion ol.checklist > li:nth-child(even) {
+      border-right: none; }
+    .brick.accordion ol.checklist > li:nth-child(odd) {
+      clear: left;
+      padding: 0 25px 0 0; }
+    .brick.accordion ol.checklist > li:last-child {
+      padding-bottom: 0;
+      margin-bottom: 0; } }
+  @media only screen and (max-width: 767px) {
+    .brick.accordion ol.checklist > li {
+      display: inline-block;
+      width: 100%;
+      margin-bottom: 25px;
+      border-right: none;
+      border-bottom: 2px dotted #e30c00;
+      clear: left; }
+      .brick.accordion ol.checklist > li ul li {
+        width: 100%; }
+    .brick.accordion ol.checklist > li:nth-child(even),
+    .brick.accordion ol.checklist > li:nth-child(odd) {
+      padding: 0 0 25px 0; }
+    .brick.accordion ol.checklist > li:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+      margin-bottom: 0; } }
+  @media only screen and (min-width: 992px) {
+    .brick.accordion ol.checklist.max-items > li {
+      width: 19%; }
+    .brick.accordion ol.checklist.four-items > li {
+      width: 24%; }
+    .brick.accordion ol.checklist.three-items > li {
+      width: 32%; }
+    .brick.accordion ol.checklist.min-items > li {
+      width: 49%; }
+    .brick.accordion ol.checklist > li:nth-child(5n) {
+      border-right: none; }
+    .brick.accordion ol.checklist > li:nth-child(5n+1) {
+      clear: left;
+      padding: 0 25px 0 0; } }

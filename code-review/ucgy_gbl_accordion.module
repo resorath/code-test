@@ -1,0 +1,95 @@
+<?php
+/**
+ * @file
+ * Code for the Global Brick: Accordion feature.
+ */
+
+// Added by features module to include features stuff
+include_once 'ucgy_gbl_accordion.features.inc';
+
+/**
+ * Implements hook_theme().
+ *
+ * Define path to module template files.
+ *
+ * @param string $existing
+ *   Unused.
+ * @param string $type
+ *   Unused.
+ * @param string $theme
+ *   Unused.
+ * @param string $path
+ *   Unused.
+ * @return mixed
+ *  Unused.
+ */
+function ucgy_gbl_accordion_theme($existing, $type, $theme, $path)
+{
+    $module_path = drupal_get_path('module', 'ucgy_gbl_accordion');
+    return array(
+        'fieldable_panels_pane__ucgy_gbl_accordion' => array(
+            'variables' => array(),
+            'path' => $module_path . '/templates',
+            'base hook' => 'fieldable_panels_pane',
+            'template' => 'fieldable-panels-pane--ucgy_gbl_accordion'
+        ),
+    );
+}
+
+/**
+ * Implements hook_preprocess_fieldable_panels_pane().
+ *
+ * Unset container class.
+ *
+ * @param array $vars
+ *   Get bundle and classes for ucgy_gbl_daccordion.
+ */
+function ucgy_gbl_accordion_preprocess_fieldable_panels_pane(&$vars)
+{
+    if (isset($vars['elements']['#bundle']) && $vars['elements']['#bundle'] == 'ucgy_gbl_accordion') {
+
+        // Set the core brick class
+        $brick_classes = array('accordion');
+
+        // Merge all the classes together into a happy bundle
+        $vars['classes_array'] = array_merge($vars['classes_array'], $brick_classes);
+    }
+}
+
+/**
+ * Implements hook_form_alter().
+ *
+ */
+function ucgy_gbl_accordion_form_alter(&$form, &$form_state, $form_id) {
+
+    if (isset($form_state['entity']->bundle) && $form_state['entity']->bundle == 'ucgy_gbl_accordion') {
+
+        // Check if it is either of these fpp edit forms.
+        if ($form_id == 'fieldable_panels_panes_fieldable_panels_pane_content_type_edit_form' || $form_id == 'fieldable_panels_panes_entity_edit_form') {
+
+            // Change the title label.
+            $form['title']['#title'] = t('Heading (displayed)');
+
+            // Change the description.
+            $form['title']['#description'] = t('This is the heading that will appear at the top of the brick.  All headings are required because they are used elsewhere in the system.');
+
+            // Set the default text format for the description field to 'simple' aka 'bold_and_italics'
+            $form['field_gbl_accord_description'][LANGUAGE_NONE][0]['#format'] = 'bold_and_italics';
+
+        }
+    }
+
+}
+
+/**
+ * Implements hook_fieldable_panels_pane_view().
+ *
+ * Restrict JS call to only pages that require it.
+ */
+function ucgy_gbl_accordion_fieldable_panels_pane_view($panels_pane, $view_mode, $langcode)
+{
+    if ($panels_pane->bundle == 'ucgy_gbl_accordion') {
+        $module_path = drupal_get_path('module', 'ucgy_gbl_accordion');
+        drupal_add_js($module_path . '/js/ucgy_gbl_accordion.js');
+    }
+}
