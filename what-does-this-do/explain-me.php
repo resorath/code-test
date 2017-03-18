@@ -5,11 +5,11 @@ function _parse($item) {
     'fragment' => '',
   );
 
-  if (!is_null($item)) return;
+  if (is_null($item)) return;
 
   if (strpos($item, '://') !== FALSE) {
     $parts = explode('?', $item);
-    $options['path'] += $parts;
+    $options['path'] = $parts[0];
 
     $query_parts = explode('#', $parts[1]);
     parse_str($query_parts[0], $options['query']);
@@ -19,8 +19,12 @@ function _parse($item) {
     $parts = parse_url('http://example.com/' . $item);
     $options['path'] = substr($parts['path'], 1);
     if (isset($parts['query'])) {
-      parse_str($parts('query'), $options['query']);
+      parse_str($parts['query'], $options['query']);
     }
+    if (isset($parts['fragment'])) {
+      $options['fragment'] = $parts['fragment'];
+    }
+
   }
 
   return $options;
